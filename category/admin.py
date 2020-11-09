@@ -1,7 +1,13 @@
 from django.contrib import admin
 from category.models import Category
+
+
 # Register your models here.
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ('text', )
+    list_display = ('text',)
+
+
+class CategoryTableAdmin(admin.TabularInline):
+    pass
