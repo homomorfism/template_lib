@@ -1,0 +1,39 @@
+{% load static %}
+{% block entry %}
+    <article class="brick entry format-standard animate-this">
+
+        <!-- обложка дефолтная стоит, как допилим - у каждого материала сделать свою (поле в базе данных) -->
+        <div class="entry__thumb">
+            <a href="#" class="thumb-link">
+                <img src="{% static 'home/images/thumbs/masonry/rucksack-600.jpg' %}"
+                     srcset="{% static 'home/images/thumbs/masonry/rucksack-600.jpg' %} 1x, {% static 'home/images/thumbs/masonry/rucksack-1200.jpg' %} 2x"
+                     alt="">
+            </a>
+        </div> <!-- end entry__thumb -->
+
+
+        <div class="entry__text">
+            <div class="entry__header">
+
+                <!--Тут рисуем теги -->
+                <div class="entry__meta">
+                        <span class="entry__cat-links">
+                            {% for tag in material_tags %}
+                                <a href="{% url 'category' tag.text %}">{{ tag.text }}</a>
+                            {% endfor %}
+                        </span>
+                </div>
+
+                <h1 class="entry__title"><a href="{% url 'material' material.id %}">{{ material.title }}.</a></h1>
+
+            </div>
+
+            <!-- Short description-->
+            <div class="entry__excerpt">
+                <p>{{ material.short_description }}</p>
+            </div>
+        </div> <!-- end entry__text -->
+
+    </article> <!-- end entry -->
+
+{% endblock %}
