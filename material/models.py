@@ -25,7 +25,7 @@ class Material(models.Model):
                                      default=temp_summary)
     description = models.CharField(max_length=200, help_text="Enter description of book", default=temp_summary)
 
-    categories = models.ManyToManyField(to=Category, help_text="Choose tags for book", null=False)
+    categories = models.ManyToManyField(to=Category, help_text="Choose tags for book")
 
     def __str__(self):
         return self.title
