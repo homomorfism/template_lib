@@ -1,6 +1,6 @@
 from django.contrib import admin
 from category.models import Category
-from material.models import Material
+# from material.models import Material
 
 
 # Register your models here.
