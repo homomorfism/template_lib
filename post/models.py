@@ -30,6 +30,15 @@ class Post(models.Model):
 
     categories = models.ManyToManyField(to=Category, help_text="Choose tags for book")
 
+    # TODO add state 'deleted'
+    states = [
+        ('0', 'Invisible'),
+        ('1', 'Approved'),
+        ('2', 'Declined'),
+    ]
+
+    visibility = models.CharField(max_length=1, choices=states, default='0', help_text="Current state of material")
+
     def __str__(self):
         return self.title
 

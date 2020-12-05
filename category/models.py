@@ -10,7 +10,4 @@ class Category(models.Model):
         return self.text
 
     class Meta:
-        ordering = ['text',]
-
-
-
+        ordering = ['text', ]

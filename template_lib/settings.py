@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'post.apps.PostConfig',
     'category.apps.CategoryConfig',
+    'download.apps.DownloadConfig',
+    'upload.apps.UploadConfig',
 ]
 
 MIDDLEWARE = [
