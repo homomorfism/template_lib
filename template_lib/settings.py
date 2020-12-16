@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'category.apps.CategoryConfig',
     'download.apps.DownloadConfig',
     'upload.apps.UploadConfig',
+    'search_engine.apps.SearchEngineConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,1 @@
+In general, django.test.TestCase does a full database flush at the start of each new test. This means that we do not need to manually delete objects in our tearDown as Chris Pratt has mentioned above. The next test setUp will make sure the database is clean.

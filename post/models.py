@@ -4,7 +4,7 @@ from django.db import models
 from category.models import Category
 
 
-class FileField(models.Model):
+class MyFileField(models.Model):
     file = models.FileField(upload_to='media/', help_text="Upload file with material", null=False)
 
 
@@ -13,7 +13,10 @@ class Post(models.Model):
                    "dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint " \
                    "in aliqua cillum in consequat consequat in culpa in anim. "
     who_added = models.CharField(max_length=20, help_text="Username who added material", null=False, )
-    attachments = models.ForeignKey(FileField, on_delete=models.CASCADE)
+
+    # Foreign key, it is better to make ManyToMany
+    attachments = models.ForeignKey(MyFileField, on_delete=models.CASCADE)
+
     date_publication = models.DateTimeField(help_text='Date and time for uploading', null=False)
 
     image_preview_small = models.ImageField(help_text="Preview image (small)",
@@ -24,8 +27,6 @@ class Post(models.Model):
     title = models.CharField(max_length=100, help_text="Enter title of material", null=False)
     author = models.CharField(max_length=100, help_text="Enter author of material", null=False)
 
-    short_summary = models.CharField(max_length=200, help_text="Enter short summary of book, what is it about?",
-                                     default=temp_summary)
     description = models.CharField(max_length=200, help_text="Enter description of book", default=temp_summary)
 
     categories = models.ManyToManyField(to=Category, help_text="Choose tags for book")
@@ -42,5 +43,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    # Sorting in admin panel
     class Meta:
         ordering = ['title', '-date_publication', ]

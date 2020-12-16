@@ -1,0 +1,1 @@
+Finally, in more complicated scenarios, it might also make sense to deliberately persist the test database to hunt down specific unit test bugs.

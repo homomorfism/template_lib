@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!-- content
+================================================== -->
+<section class="s-content s-styles">
+
+
+    <div class="row">
+
+        <div class="column large-6 tab-12">
+
+            <h3 class="h-add-bottom">Login to website</h3>
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                {# TODO Сделать формы #}
+
+                <input class="btn--primary h-full-width" type="submit" value="Submit">
+            </form>
+
+        </div>
+
+        <div class="column large-6 tab-12">
+
+            <h3>Alert Boxes</h3>
+
+            <br>
+
+            <div class="alert-box alert-box--error">
+                <p>Error Message. Your Message Goes Here.</p>
+                <span class="alert-box__close"></span>
+            </div><!-- end error -->
+
+            <div class="alert-box alert-box--success">
+                <p>Success Message. Your Message Goes Here.</p>
+                <span class="alert-box__close"></span>
+            </div><!-- end success -->
+
+            <div class="alert-box alert-box--info">
+                <p>Info Message. Your Message Goes Here.</p>
+                <span class="alert-box__close"></span>
+            </div><!-- end info -->
+
+            <div class="alert-box alert-box--notice">
+                <p>Notice Message. Your Message Goes Here.</p>
+                <span class="alert-box__close"></span>
+            </div><!-- end notice -->
+
+        </div>
+
+    </div> <!-- end row -->
+
+</section> <!-- end s-content -->
+
+{% endblock %}
