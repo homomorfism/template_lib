@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http.response import Http404
-from django.shortcuts import render
 
 # Create your views here.
 from post.models import Post
+
 
 # TODO 404 -> page does not exists
 @login_required(redirect_field_name='login')

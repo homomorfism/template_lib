@@ -18,20 +18,16 @@
                 <!--Тут рисуем теги -->
                 <div class="entry__meta">
                         <span class="entry__cat-links">
-                            {% for tag in post_tags %}
-                                <a href="{% url 'category' tag.text %}">{{ tag.text }}</a>
+                            {% for category in categories %}
+                                <a href="{% url 'category' category.id %}">{{ category.text }}</a>
                             {% endfor %}
                         </span>
                 </div>
 
-                <h1 class="entry__title"><a href="{% url 'post' post.id %}">{{ post.title }}.</a></h1>
+                <h1 class="entry__title"><a href="{% url 'post-detail' post.id %}">{{ post.title }}.</a></h1>
 
             </div>
 
-            <!-- Short description-->
-            <div class="entry__excerpt">
-                <p>{{ post.short_description }}</p>
-            </div>
         </div> <!-- end entry__text -->
 
     </article> <!-- end entry -->

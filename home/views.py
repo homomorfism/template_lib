@@ -11,9 +11,8 @@ from post.models import Post
 def index_view(request):
 
     context = {
-        "materials": Post.objects.filter(visibility='1').all()[:20],
+        "posts": Post.objects.filter(visibility='1').all()[:20],
         "categories": Category.objects.all(),
-
     }
 
-    return render(request, "index.html")
+    return render(request, "index.html", context)
