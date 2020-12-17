@@ -26,6 +26,7 @@ urlpatterns = [
     path('post/', include('post.urls')),
     path('category/', include('category.urls')),
     path('', RedirectView.as_view(url='/home/')),
+    path('accounts/', include('accounts.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

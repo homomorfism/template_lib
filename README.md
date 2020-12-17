@@ -8,3 +8,10 @@ https://www.styleshout.com/templates/preview/Abstract_2_0_0/index.html
 SuperUser: admin admin
 
 Отладочные сообщения (материал скрыт и т.д.) передаются в отдельный html - переделать в home с сообщениями
+
+
+Header: 
+Home, 
+(login, reset password) or (logout, change password),
+Category,
+

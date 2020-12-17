@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'download.apps.DownloadConfig',
     'upload.apps.UploadConfig',
     'search_engine.apps.SearchEngineConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

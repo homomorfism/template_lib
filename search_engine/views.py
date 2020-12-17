@@ -1,10 +1,10 @@
-from operator import attrgetter
-
+from django.conf import settings
+# Create your views here.
 from django.db.models import Q
 
 # Create your views here.
 from post.models import Post
-from django.conf import settings
+
 
 def get_posts_by_query(query):
     queryset = []

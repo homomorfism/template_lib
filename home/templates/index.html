@@ -2,8 +2,17 @@
 {% load static %}
 
 {% block content %}
-    <div class="s-content__primary">
-        <h1>This is index (home) page</h1>
-    </div>
+    <section class="s-bricks">
+        <div class="masonry">
+            <div class="bricks-wrapper h-group">
+
+                <div class="grid-sizer"></div>
+                {% for material in materials %}
+                    {% include 'blog_entry.html' %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

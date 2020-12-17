@@ -1,1 +1,0 @@
-I was working on a project that handled some file uploads, and i needed to delete the files that were created by the test and the tearDown method was very useful in that situation.

@@ -4,18 +4,11 @@ from django.db import models
 from category.models import Category
 
 
-class MyFileField(models.Model):
-    file = models.FileField(upload_to='media/', help_text="Upload file with material", null=False)
-
-
 class Post(models.Model):
     temp_summary = "Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident " \
                    "dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint " \
                    "in aliqua cillum in consequat consequat in culpa in anim. "
     who_added = models.CharField(max_length=20, help_text="Username who added material", null=False, )
-
-    # Foreign key, it is better to make ManyToMany
-    attachments = models.ForeignKey(MyFileField, on_delete=models.CASCADE)
 
     date_publication = models.DateTimeField(help_text='Date and time for uploading', null=False)
 
@@ -31,7 +24,9 @@ class Post(models.Model):
 
     categories = models.ManyToManyField(to=Category, help_text="Choose tags for book")
 
-    # TODO add state 'deleted'
+    attachments = models.ManyToManyField(to='MyFileField', help_text='Choose attachments to post')
+
+    # In the future add state 'deleted'
     states = [
         ('0', 'Invisible'),
         ('1', 'Approved'),
@@ -46,3 +41,7 @@ class Post(models.Model):
     # Sorting in admin panel
     class Meta:
         ordering = ['title', '-date_publication', ]
+
+
+class MyFileField(models.Model):
+    file = models.FileField(upload_to='media/', help_text="Upload file with material", null=False)

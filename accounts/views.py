@@ -23,3 +23,7 @@ def change_password_view(request):
 # TODO add templates for reset password and implement reset_password_view
 def reset_password_view(request):
     pass
+
+
+def sign_up_view(request):
+    pass
