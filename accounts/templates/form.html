@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<!-- content
+================================================== -->
+<section class="s-content s-styles">
+
+
+    <div class="row">
+
+        <div class="column large-6 tab-12">
+
+            <h3 class="h-add-bottom">Login to website</h3>
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                {{ form }}
+
+                <input class="btn--primary h-full-width" type="submit" value="Submit">
+            </form>
+
+        </div>
+
+        <div class="column large-6 tab-12">
+
+{#            <h3>Alert Boxes</h3>#}
+
+            <br>
+
+            {% if message is not null %}
+                {% if type == 'error' %}
+                    <div class="alert-box alert-box--error">
+                        <p>{{ message }}</p>
+                        <span class="alert-box__close"></span>
+                    </div><!-- end error -->
+                {% else %}
+                    <div class="alert-box alert-box--success">
+                        <p>{{ message }}</p>
+                        <span class="alert-box__close"></span>
+                    </div><!-- end success -->
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+    </div> <!-- end row -->
+
+</section> <!-- end s-content -->
+
+{% endblock %}

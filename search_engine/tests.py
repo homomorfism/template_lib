@@ -11,7 +11,7 @@ from search_engine.views import get_posts_by_query
 
 
 class CheckSearch(TestCase):
-    # Ok, it works
+    # Ok, it works, it finally works
 
     # Preparing data for testing
     def setUp(self) -> None:
@@ -35,13 +35,22 @@ class CheckSearch(TestCase):
         category2.save()
         category3.save()
 
-        attachment1 = MyFileField.objects.create(file=File(open('file1.txt')))
-        attachment2 = MyFileField.objects.create(file=File(open('file2.txt')))
-        attachment3 = MyFileField.objects.create(file=File(open('file3.txt')))
+        with open('file1.txt', 'r') as file1, open('file2.txt', 'r') as file2, open('file3.txt', 'r') as file3:
+            attachment1 = MyFileField.objects.create(file=File(file1))
+            attachment2 = MyFileField.objects.create(file=File(file2))
+            attachment3 = MyFileField.objects.create(file=File(file3))
 
         attachment1.save()
         attachment2.save()
         attachment3.save()
+
+        # We don't need them, django copy them by diff. name. idk how it works?
+        os.remove('media/media/file1.txt')
+        os.remove('media/media/file2.txt')
+        os.remove('media/media/file3.txt')
+        os.remove('file1.txt')
+        os.remove('file2.txt')
+        os.remove('file3.txt')
 
         post1 = Post.objects.create(
             title="temp_title1",
@@ -68,11 +77,6 @@ class CheckSearch(TestCase):
         post2.attachments.add(attachment3)
         post2.categories.add(category3)
         post2.save()
-
-        # Removing temp files (they are already saved in good place)
-        os.remove('file1.txt')
-        os.remove('file2.txt')
-        os.remove('file3.txt')
 
     def test_files_can_be_found_by_titles(self):
         # print("DEBUG: running test_files_can_be_found_by_titles!")
@@ -114,3 +118,11 @@ class CheckSearch(TestCase):
         category1.delete()
         category2.delete()
         category3.delete()
+
+        file1 = MyFileField.objects.filter(file__startswith='file1')
+        file2 = MyFileField.objects.filter(file__startswith='file2')
+        file3 = MyFileField.objects.filter(file__startswith='file3')
+
+        file1.delete()
+        file2.delete()
+        file3.delete()

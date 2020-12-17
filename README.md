@@ -15,3 +15,4 @@ Home,
 (login, reset password) or (logout, change password),
 Category,
 
+When resetting password, password is changed and new generated password is sent to user email.
