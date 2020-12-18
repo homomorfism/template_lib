@@ -7,8 +7,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from accounts.forms import LoginForm, ChangePasswordForm, SignUpForm
 # Make assert that user is not registered at this moment
@@ -26,16 +25,18 @@ def login_view(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            user = authenticate(username=email, password=password)
+            user = authenticate(email=email, password=password)
+            print(f"Email: {email}, password: {password}")
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(redirect_to='/home/')
+                return redirect(to='home')
             else:
                 return render(request, 'form.html', context={
                     "categories": Category.objects.all(),
                     'form': form,
                     'type': 'error',
-                    'message': "Authentication is failed, please use another email/password"
+                    'message': "Authentication is failed, please use another email/password",
+                    'button_text': 'Login',
                 })
 
     else:
@@ -44,6 +45,7 @@ def login_view(request):
     return render(request, 'form.html', context={
         "categories": Category.objects.all(),
         'form': form,
+        'button_text': 'Login',
     })
 
 
@@ -53,7 +55,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
 
-    return HttpResponseRedirect(redirect_to='/home/')
+    return redirect(to='home')
 
 
 # TODO add templates for changing password and implement change_password_view
@@ -79,7 +81,8 @@ def change_password_view(request):
                     "categories": Category.objects.all(),
                     'form': form,
                     'type': 'success',
-                    'message': "The password successfully changed!"
+                    'message': "The password successfully changed!",
+                    'button_text': 'Change password',
                 })
 
             else:
@@ -88,7 +91,8 @@ def change_password_view(request):
                     "categories": Category.objects.all(),
                     'form': form,
                     'type': 'error',
-                    'message': "Your old password does not match with one we have!"
+                    'message': "Your old password does not match with one we have!",
+                    'button_text': 'Change password',
                 })
 
     else:
@@ -97,6 +101,7 @@ def change_password_view(request):
     return render(request, 'form.html', context={
         "categories": Category.objects.all(),
         'form': form,
+        'button_text': 'Change password',
     })
 
 
@@ -130,7 +135,8 @@ def reset_password_view(request):
                 return render(request, 'form.html', {
                     'categories': Category.objects.all(),
                     'form': form,
-                    'message': "Your password were reset, please check your email :)"
+                    'message': "Your password were reset, please check your email :)",
+                    'button_text': 'Reset password',
                 })
             except smtplib.SMTPException as e:
                 logging.error(f"Can not send mail with resetting password to {email}")
@@ -138,7 +144,8 @@ def reset_password_view(request):
                 return render(request, 'form.html', {
                     'categories': Category.objects.all(),
                     'form': form,
-                    'message': f"Can not send mail with resetting password to {email}, try again please :( "
+                    'message': f"Can not send mail with resetting password to {email}, try again please :( ",
+                    'button_text': 'Reset password',
                 })
 
     else:
@@ -147,6 +154,7 @@ def reset_password_view(request):
     return render(request, 'form.html', {
         'categories': Category.objects.all(),
         'form': form,
+        'button_text': 'Reset password',
     })
 
 
@@ -180,7 +188,8 @@ def sign_up_view(request):
                     'categories': Category.objects.all(),
                     'form': form,
                     'message': 'Confirmation letter were sent! Check your email please :)',
-                    'type': 'success'
+                    'type': 'success',
+                    'button_text': 'Sign up',
                 })
             except smtplib.SMTPException as e:
                 logging.error(f"Error happened while sending message to {email}: {str(e)}")
@@ -190,6 +199,7 @@ def sign_up_view(request):
                     'form': form,
                     'message': 'Something went wrong, please try again :(',
                     'type': 'error',
+                    'button_text': 'Sign up',
                 })
 
     else:
@@ -198,4 +208,5 @@ def sign_up_view(request):
     return render(request, 'form.html', {
         'categories': Category.objects.all(),
         'form': form,
+        'button_text': 'Sign up',
     })
