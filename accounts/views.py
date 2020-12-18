@@ -25,7 +25,7 @@ def login_view(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            user = authenticate(email=email, password=password)
+            user = authenticate(request, username=email, password=password)
             print(f"Email: {email}, password: {password}")
             if user is not None:
                 login(request, user)
