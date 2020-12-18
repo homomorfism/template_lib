@@ -8,26 +8,31 @@ from django.core.exceptions import ValidationError
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(help_text="temp@mail.ru")
-    password = forms.PasswordInput()
+    email = forms.EmailField()
+    password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
 
 # For changing password to another (old + new + repeat new)
 # Assert that user is logged in now
 class ChangePasswordForm(forms.Form):
-    old_password = forms.PasswordInput()
-    new_password = forms.PasswordInput()
-    repeat_new_password = forms.PasswordInput()
+    old_password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+    new_password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+    repeat_new_password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
-    def clean_old_password(self):
-        # TODO how to check that this password is correct?
-        pass
+    def clean_repeat_new_password(self):
+        new_password = self.cleaned_data['new_password']
+        repeat_new_password = self.cleaned_data['repeat_new_password']
+
+        if new_password != repeat_new_password:
+            raise ValidationError("New passwords should be matched!")
+        else:
+            return repeat_new_password
 
 
 # For Signing Up (registering)
 class SignUpForm(forms.Form):
-    email = forms.CharField(max_length=50, help_text="t@mail.ru")
-    password = forms.PasswordInput()
+    email = forms.EmailField()
+    password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -41,7 +46,7 @@ class SignUpForm(forms.Form):
 
 # For resetting password (via email)
 class ResetPasswordForm(forms.Form):
-    email = forms.CharField(max_length=50, help_text="Enter email of account")
+    email = forms.EmailField(max_length=50, help_text="Your email")
 
     def clean_email(self):
         email = self.cleaned_data['email']

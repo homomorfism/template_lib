@@ -15,7 +15,6 @@ class CheckSearch(TestCase):
 
     # Preparing data for testing
     def setUp(self) -> None:
-        # print("DEBUG: creating temp materials!")
         with open('file1.txt', 'w') as file1, open('file2.txt', 'w') as file2, open('file3.txt', 'w') as file3:
             file1.write("In general, django.test.TestCase does a full database flush at the start of each new test. "
                         "This means that we do not need to manually delete objects in our tearDown as Chris Pratt has "
@@ -79,7 +78,6 @@ class CheckSearch(TestCase):
         post2.save()
 
     def test_files_can_be_found_by_titles(self):
-        # print("DEBUG: running test_files_can_be_found_by_titles!")
         posts = get_posts_by_query('temp_title1')
 
         p1 = Post.objects.get(title='temp_title1')
@@ -91,7 +89,6 @@ class CheckSearch(TestCase):
         )
 
     def test_files_can_be_found_by_categories(self):
-        # print("DEBUG: test_files_can_be_found_by_categories!")
         posts = get_posts_by_query('temp_category3')
 
         p2 = Post.objects.filter(categories__text='temp_category3')
@@ -104,7 +101,6 @@ class CheckSearch(TestCase):
         )
 
     def tearDown(self) -> None:
-        # print("DEBUG: deleting materials!")
         post1 = Post.objects.get(title='temp_title1')
         post2 = Post.objects.get(title='temp_title2')
 
