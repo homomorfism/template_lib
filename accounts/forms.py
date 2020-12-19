@@ -33,6 +33,7 @@ class ChangePasswordForm(forms.Form):
 class SignUpForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(max_length=50, widget=forms.PasswordInput)
+    repeat_password = forms.CharField(max_length=50, widget=forms.PasswordInput)
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -42,6 +43,15 @@ class SignUpForm(forms.Form):
 
         else:
             return email
+
+    def clean_repeat_password(self):
+        password = self.cleaned_data['password']
+        repeat_password = self.cleaned_data['repeat_password']
+
+        if password != repeat_password:
+            raise ValidationError("New passwords should be matched!")
+        else:
+            return repeat_password
 
 
 # For resetting password (via email)

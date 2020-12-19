@@ -16,3 +16,5 @@ Home,
 Category,
 
 When resetting password, password is changed and new generated password is sent to user email.
+
+May be instead of form.cleaned_data[''] we should use form.cleaned_data.get('', '')?

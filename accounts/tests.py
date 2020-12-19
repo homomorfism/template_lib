@@ -32,7 +32,7 @@ class CheckSendingEmail(TestCase):
             subject="Test message",
             message="Test message",
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=['trtrts@mail.ru', ],
+            recipient_list=['arsl.sh056@mail.ru', ],
         )
 
         self.assertEqual(status, 1, f"send_mail sent only {status} message, but should send 1.")
